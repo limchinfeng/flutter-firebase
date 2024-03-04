@@ -12,10 +12,12 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
 
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   // text field state
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +40,12 @@ class _RegisterState extends State<Register> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               SizedBox(height: 20),
               TextFormField(
+                validator: (val) => val!.isEmpty ? 'Enter an email': null,
                 onChanged: (value) {
                   setState(() {
                     email = value;
@@ -50,6 +54,7 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20),
               TextFormField(
+                validator: (val) => val!.length < 6 ? 'Enter a password 6+ character long': null,
                 obscureText: true,
                 onChanged: (value) {
                   setState(() {
@@ -60,8 +65,16 @@ class _RegisterState extends State<Register> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
-                  print(email);
-                  print(password);
+                  if(_formKey.currentState!.validate()) {
+                    dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                    if(result == null) {
+                      setState(() {
+                        error = 'please supply a valid email and password';
+                      });
+                    } else {
+
+                    }
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.pink[400],
@@ -71,6 +84,14 @@ class _RegisterState extends State<Register> {
                   style: TextStyle(
                     color: Colors.white
                   ),
+                ),
+              ),
+              SizedBox(height: 12),
+              Text(
+                error,
+                style: TextStyle(
+                  color: Colors.red, 
+                  fontSize: 14
                 ),
               ),
             ],
