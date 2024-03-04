@@ -1,4 +1,5 @@
 import 'package:coffee_firebase/services/auth.dart';
+import 'package:coffee_firebase/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -45,6 +46,7 @@ class _RegisterState extends State<Register> {
             children: [
               SizedBox(height: 20),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Email'),
                 validator: (val) => val!.isEmpty ? 'Enter an email': null,
                 onChanged: (value) {
                   setState(() {
@@ -54,6 +56,7 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Password'),
                 validator: (val) => val!.length < 6 ? 'Enter a password 6+ character long': null,
                 obscureText: true,
                 onChanged: (value) {
@@ -71,8 +74,6 @@ class _RegisterState extends State<Register> {
                       setState(() {
                         error = 'please supply a valid email and password';
                       });
-                    } else {
-
                     }
                   }
                 },
