@@ -1,16 +1,15 @@
 import 'package:coffee_firebase/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
-
+class Register extends StatefulWidget {
   final Function toggleView;
-  const SignIn({super.key, required this.toggleView});
+  const Register({super.key, required this.toggleView});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
 
   final AuthService _auth = AuthService();
 
@@ -25,14 +24,14 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0,
-        title: Text('Sign in to Brew Crew'),
+        title: Text('Sign up to Brew Crew'),
         actions: [
           TextButton.icon(
             onPressed: () {
               widget.toggleView();
             }, 
             icon: Icon(Icons.person), 
-            label: Text('Register'),
+            label: Text('Sign In'),
           ),
         ],
       ),
@@ -68,7 +67,7 @@ class _SignInState extends State<SignIn> {
                   backgroundColor: Colors.pink[400],
                 ),
                 child: Text(
-                  'Sign in',
+                  'Register',
                   style: TextStyle(
                     color: Colors.white
                   ),
