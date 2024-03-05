@@ -49,7 +49,7 @@ class _SignInState extends State<SignIn> {
             children: [
               SizedBox(height: 20),
               TextFormField(
-                decoration: textInputDecoration..copyWith(hintText: 'Email'),
+                decoration: textInputDecoration.copyWith(hintText: 'Email'),
                 validator: (val) => val!.isEmpty ? 'Enter an email': null,
                 onChanged: (value) {
                   setState(() {
