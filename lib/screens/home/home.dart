@@ -1,5 +1,6 @@
 import 'package:coffee_firebase/models/brew.dart';
 import 'package:coffee_firebase/screens/home/brew-list.dart';
+import 'package:coffee_firebase/screens/home/settings-form.dart';
 import 'package:coffee_firebase/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:coffee_firebase/services/database.dart';
@@ -12,7 +13,17 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final AuthService _auth = AuthService();
-    
+
+    void _showSettingsPanel() {
+      showModalBottomSheet(context: context, builder: (context){
+        return Container(
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+          child: SettingsForm(),
+        );
+      });
+    }
+
+
     return StreamProvider<List<Brew>?>.value(
       value: DatabaseService(uid:"").brews,
       initialData: null,
@@ -38,6 +49,13 @@ class Home extends StatelessWidget {
                 ), 
               ),
             ),
+            TextButton.icon(
+              icon: Icon(Icons.settings, color: Colors.black,),
+              label: Text('settings', style: TextStyle(
+                  color: Colors.black),
+                ),
+              onPressed: () => _showSettingsPanel(),
+            )
           ],
         ),
         body: BrewList(),
